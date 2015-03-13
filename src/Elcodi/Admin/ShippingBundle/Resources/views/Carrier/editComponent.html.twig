@@ -26,32 +26,38 @@
                 </div>
             </div>
             <div class="col-2-3">
-                <div class="box">
-                    <ol>
-                        <li>
-                            {{
-                                form_row(form.name, {
-                                    label: 'admin.carrier.field.name.title',
-                                    attr: { placeholder: 'admin.carrier.field.name.placeholder' }
-                                })
-                            }}
-                        </li>
-                        <li>
-                            {{
-                                form_row(form.description, {
-                                    label: 'admin.carrier.field.description.title',
-                                    attr: { placeholder: 'admin.carrier.field.description.placeholder' }
-                                })
-                            }}
-                        </li>
-                        <li class="w-30">
-                            {{
-                                form_row(form.tax, {
-                                    label: 'admin.carrier.field.taxes.title',
-                                })
-                            }}
-                        </li>
-                    </ol>
+                <div {% if elcodi_languages|length > 1 %}data-tc-modules="tabs" class="tabs-box" {% endif %}>
+                    {% for language in elcodi_languages %}
+                    <section id="tab-{{ language }}" data-tc-name="{% if loop.first %}{{ '<i class="icon-star"></i>'|e }} {% endif %}{{ language|capitalize }}">
+                        <div class="box">
+                            <ol>
+                                <li>
+                                    {{
+                                        form_row(form.name["#{language}_name"], {
+                                            label: 'admin.carrier.field.name.title',
+                                            attr: { placeholder: 'admin.carrier.field.name.placeholder' }
+                                        })
+                                    }}
+                                </li>
+                                <li>
+                                    {{
+                                        form_row(form.description["#{language}_description"], {
+                                            label: 'admin.carrier.field.description.title',
+                                            attr: { placeholder: 'admin.carrier.field.description.placeholder' }
+                                        })
+                                    }}
+                                </li>
+                                <li class="w-30">
+                                    {{
+                                        form_row(form.tax, {
+                                            label: 'admin.carrier.field.taxes.title',
+                                        })
+                                    }}
+                                </li>
+                            </ol>
+                        </div>
+                    </section>
+                {% endfor %}
                 </div>
             </div>
         </div>
